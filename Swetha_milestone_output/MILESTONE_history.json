@@ -1,0 +1,10 @@
+{
+    "johns": [
+        {
+            "analyst_id": "johns",
+            "query": "Multiple failed SSH logins",
+            "answer": " {\n  \"Summary\": \"Currently, I am waiting for data or alerts to analyze as a SOC Analyst Assistant.\"\n}",
+            "timestamp": 1763202740
+        }
+    ]
+}
