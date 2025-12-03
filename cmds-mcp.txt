@@ -1,0 +1,14 @@
+py -3.11 -m venv mcp_env
+py -3.11 --version
+pip install mcp
+pip install fastmcp
+
+pip install ollama
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+# pip install transformers
+
+pip install --upgrade langchain
+pip install langchain --upgrade --force-reinstall
+python -m pip install --upgrade --force-reinstall langchain
+
+
