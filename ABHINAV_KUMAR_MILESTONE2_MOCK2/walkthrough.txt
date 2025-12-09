@@ -1,0 +1,63 @@
+Insurance Claim Adjudication System Walkthrough
+I have successfully built the Multi-Agent Insurance Claim Adjudication System using LangGraph.
+
+Implementation Details
+1. Data & RAG
+Policy Rules: Created 
+data/policies/coverage_rules.md
+ with 12+ policy points.
+RAG: Implemented using FAISS and HuggingFaceEmbeddings (Local Execution).
+No API Key Required: The system runs entirely locally using the all-MiniLM-L6-v2 model.
+2. Agents & Workflow
+The system consists of the following nodes:
+
+parse_claim_details
+: Extracts cost, incident type, and submitted docs using rule-based logic.
+retrieve_rules_rag
+: Fetches relevant policy clauses using local vector search.
+check_document_completeness
+: Identifies missing documents.
+input_simulator
+: Simulates the user providing missing documents (Looping logic).
+fraud_detection_agent
+: Calculates fraud score based on heuristics.
+settlement_computation
+: Applies depreciation and deductibles.
+final_report_builder
+: Generates the final output.
+3. Verification Results
+I ran the 
+main.py
+ script with a sample claim (Accident, missing license).
+
+Execution Log:
+
+Initializing Local Embeddings (this may take a moment on first run)...
+Starting Insurance Claim Adjudication System...
+--- Node: Parse Claim Details ---
+--- Node: Retrieve Rules RAG ---
+--- Node: Check Document Completeness ---
+!!! Missing Documents: ['driving_license']. Requesting from user... (Simulated)
+--- Node: Input Simulator (User Action) ---
+--- Node: Check Document Completeness ---
+--- Node: Fraud Detection ---
+--- Node: Settlement Computation ---
+--- Node: Final Report Builder ---
+Final Output:
+
+*** INSURANCE CLAIM ADJUDICATION REPORT ***
+-------------------------------------------
+Incident Type: Accident
+Damage Cost: RS 45000.0
+Policy Clauses Applied:
+- (Retrieved Policy Content...)
+Fraud Score: 10/100
+Settlement Calculation:
+- Base Amount: 45000.0
+- Depreciation: 10%
+- Deductible: RS 1000
+- Final Estimate: RS 39500.0
+Status: Approved
+Missing Documents: None
+-------------------------------------------
+The system correctly identified the missing document, looped back, and produced a final approved settlement report using local resources.

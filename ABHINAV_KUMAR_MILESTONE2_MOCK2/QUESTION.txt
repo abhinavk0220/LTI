@@ -1,0 +1,90 @@
+PROBLEM STATEMENT 1- MULTI-AGENT
+
+INSURANCE CLAIM ADJUDICTION SYSTEM
+
+SCENARIO
+
+Insurance processing teams struggle to evaluate claims quickly.Your task is to build a LangGraph Multi-Agent system that:
+1)Extracts structured data claim text
+2)Retrives coverage rules via RAG
+3)Checks claim eligibility 
+4)Estimates settlement amount
+5)Assesses fraud risk
+6)Loops back to requester when required documents are missing
+7)Generates a final adjudiction note
+
+WHAT MUST THE STUDENT BUILD?
+
+STEP 1: DATASET
+
+create .data/policies/coverage_rules.md
+
+including at least:
+
+1)COverage conditions
+2)Exclusions
+3)Max settlements limits
+4)Document requirements list
+5)Fraud indicators 
+6)Deprection rules
+7)Wait period rules
+
+Minimum 12 policy points required
+
+STEP 2: RAG SETUP
+
+1)Chunk policy file-> embeddings->FAISS/Chroma
+2)Implement Retriver
+3)Create Helper
+
+def get_policy_clauses(query:str)
+"return top rules relevat to the claim type
+
+STEP 3: DEFINE STATE CLASS
+
+MUST STORE:
+
+claim_text,parsed_fileds,
+policy_clauses,damage_cost,
+missing_docs,fraud_score,
+approval_status,
+settlement_estimate,
+final_report
+
+STEP 4: CREATE 6 AGENT NODES
+
+Student implement logic:
+
+NODE RESPONSIBILITY
+
+parse_claim_detail Extract cost,
+incident type, policy ID, submitted docs
+
+retrive_rules_rag ->Get relevant clauses
+
+check_document_completeness->Detect missing docs->loop if missing
+
+fraud_detection_agent -> Rule based scoring(5 heuristic rules)
+
+settlement_computation->Calculate payout with depreciation %
+
+final_report_builder -> Generate structured approval note
+
+WORKFLOW (MUST IMPLEMENT LOOPING)
+
+parse_claim_details->retrive_rules_rag->check_document_completeness
+___________________________
+loop if missing docs
+___________________________
+->fraud_detection_agent->settlement_computation->final_report_builder->
+END
+
+OUTPUT FORMAT REQUIRED
+
+Eligibility:Approved/Conditional/Rejected
+Settlement Estimate: RSxx,xxx
+Fraud Score:0-100
+Missing Docs:...
+Policy Basis:...
+Final Recommendation
+Sumamry:...
